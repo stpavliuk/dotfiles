@@ -1,0 +1,14 @@
+shell-integration-features = no-cursor
+cursor-style = block
+font-size = 11
+shell-integration = zsh
+theme = "Builtin Pastel Dark"
+macos-option-as-alt = true
+
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+font-synthetic-style = "no-bold,no-italic"
+
+window-save-state = never
+font-thicken=false

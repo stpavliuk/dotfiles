@@ -1,0 +1,97 @@
+imap jj <Esc>
+set clipboard=unnamed
+set clipboard^=ideaput
+set dialogescape=off
+set oneline=off
+set number relativenumber
+set showmode
+set showcmd
+
+set ignorecase
+set smartcase
+set incsearch
+" set hlsearch
+set visualbell
+
+set scrolloff=0
+" set scrolljump=5        
+" set sidescroll=10       
+" set sidescrolloff=5     
+
+let mapleader=" "
+
+" ==== IDEA-Vim Plugins ====
+"set surround
+"set multiple-cursors
+"set argtextobj
+"set textobj-entire
+"set ReplaceWithRegister
+"set sneak
+" set easymotion
+set highlightedyank
+set NERDTree
+set which-key
+set quickscope
+" set notimeout
+" set commentary
+set ideajoin
+set ideastatusicon=gray
+set idearefactormode=keep
+set timeoutlen=5000
+
+" Which key settings
+" let g:WhichKeyDesk_easymotion = "<Leader><Leader> EasyMotion"
+let g:WhichKey_DefaultDelay = 0
+let g:WhichKey_FontSize = 13
+let g:WhichKey_ShowVimActions = "true"
+
+" ==== NERDTree ====
+nmap <leader>e :NERDTree<CR>
+let g:NERDTreeMapActivateNode = "l"
+
+" ==== Quickscope ====
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+let g:qs_disable_for_diffs = 1
+
+" ==== IDE actions ====
+map <leader>r <Action>(RenameElement)
+
+
+" Files
+map <leader>fr <Action>(RecentFiles)
+map <leader>ff <Action>(FindInPath)
+map <leader>fsp <Action>(FileStructurePopup)
+
+" Goto commands
+map <leader>of <Action>(GotoFile)
+map <leader>oc <Action>(GotoClass)
+map <leader>os <Action>(GotoSymbol)
+map <leader>oa <Action>(GotoAction)
+
+" Run & Debug
+map <leader>R <Action>(Run)
+map <leader>c <Action>(Stop)
+map <leader>D <Action>(Debug)
+map <leader>dd <Action>(Debug)
+map <leader>dt <Action>(ActivateDebugToolWindow)
+map <leader>db <Action>(ToggleLineBreakpoint)
+
+" === Debug Actions
+map <leader>dn <Action>(StepOver)
+map <leader>di <Action>(StepInto)
+map <leader>dev <Action>(EvaluateExpression)
+map <leader>dr <Action>(Resume)
+
+" Git
+map <leader>ga <Action>(Annotate)
+map <leader>gh <Action>(Vcs.ShowTabbedFileHistory)
+map <leader>gc <Action>(CheckinProject)
+
+map <leader>/ <Action>(CommentByLineComment)
+map <leader>= <Action>(ReformatCode)
+
+map <leader>i <Action>(OptimizeImports)
+
+" Terminal
+
+map <leader>t <Action>(ActivateTerminalToolWindow)
