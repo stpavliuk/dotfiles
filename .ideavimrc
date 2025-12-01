@@ -1,3 +1,4 @@
+" ---------- Core behavior ----------
 " imap jj <Esc>
 " set clipboard=unnamed
 " set clipboard^=ideaput
@@ -21,7 +22,7 @@ set sidescrolloff=5
 
 let mapleader=" "
 
-" ==== IDEA-Vim Plugins ====
+" ---------- IdeaVim extensions ----------
 set surround
 set multiple-cursors
 set argtextobj
@@ -32,149 +33,175 @@ set highlightedyank
 set NERDTree
 set which-key
 set quickscope
-set notimeout
+set notimeout          " Or comment this and use: set timeoutlen=5000
 set commentary
 set ideajoin
 set ideastatusicon=gray
 set idearefactormode=keep
-" set timeoutlen=-1
-set idearefactormode=keep
 
-" Which key settings
+" ---------- Which-Key settings ----------
 let g:WhichKey_DefaultDelay = 0
 let g:WhichKey_FontSize = 13
 let g:WhichKey_ShowVimActions = "true"
+let g:WhichKey_SortOrder = "by_key_prefix_first"
+let g:WhichKey_SortCaseSensitive = "false"
+let g:WhichKey_ShowTypedSequence = "false"
+let g:WhichKey_ProcessUnknownMappings = "false"
 
-" ==== Project Tool Window ====
+" ---------- NERDTree ----------
 map <leader>e :NERDTree<CR>
 map <leader>E :NERDTreeFind<CR>
 let g:NERDTreeMapActivateNode = 'l'
 let g:NERDTreeMapJumpParent = 'h'
 
-" ==== Quickscope ====
+" ---------- Quickscope ----------
+" Must be set before plugin init to ensure mode sticks
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:qs_disable_for_diffs = 1
 
-" === Clipboard ===
+" ---------- Clipboard ----------
 map <leader>y <Action>(EditorCopy)
 map <leader>p <Action>(EditorPaste)
 
-" ==== IDE actions ====
-map <leader>r <Action>(RenameElement)
+map gi <Action>(GotoImplementation)
+map gs <Action>(GotoSuperMethod)
 
-" Buffers
-map <leader>bb <Action>(RecentFiles)
-map <leader>bx <Action>(CloseContent)
+" ---------- Refactor / Introduce ----------
+map <leader>rr <Action>(RenameElement)
+map <leader>rc <Action>(IntroduceConstant)
+map <leader>rm <Action>(ExtractMethod)
+map <leader>rn <Action>(Inline)
+map <leader>rv <Action>(IntroduceVariable)
+map <leader>rp <Action>(IntroduceParameter)
 
-" Goto commands
+" ---------- Buffers ----------
+map <leader>b <Action>(RecentFiles)
+
+" ---------- Goto / Search ----------
 map <leader>f <Action>(GotoFile)
-map <leader>F <Action>(FindInPath)
+map <leader>/ <Action>(FindInPath)
 map <leader>c <Action>(GotoClass)
 map <leader>s <Action>(GotoSymbol)
 map <leader>a <Action>(GotoAction)
 map <leader>S <Action>(FileStructurePopup)
 
-" Run & Debug
-map <leader>R <Action>(Run)
-map <leader>x <Action>(Stop)
+" ---------- Run & Debug ----------
+map <leader>R  <Action>(Run)
+map <leader>x  <Action>(Stop)
 map <leader>dd <Action>(Debug)
 map <leader>dt <Action>(ActivateDebugToolWindow)
 map <leader>db <Action>(ToggleLineBreakpoint)
+map <leader>dc <Action>(ChooseRunConfiguration)
 
-" === Debug Actions
+" Debug step/eval
 map <leader>dn <Action>(StepOver)
 map <leader>di <Action>(StepInto)
 map <leader>dev <Action>(EvaluateExpression)
 map <leader>dr <Action>(Resume)
 
-" Git
+" ---------- Git ----------
 map <leader>ga <Action>(Annotate)
 map <leader>gh <Action>(Vcs.ShowTabbedFileHistory)
 map <leader>gc <Action>(CheckinProject)
+map <leader>gn <Action>(VcsShowNextChangeMarker)
+map <leader>gr <Action>(Vcs.RollbackChangedLines)
 
-
-" Local History
+" ---------- Local History ----------
 map <leader>lh <Action>(LocalHistory.ShowHistory)
 
-map <leader>/ <Action>(CommentByLineComment)
+" ---------- Format / Imports ----------
 map <leader>= <Action>(ReformatCode)
-
 map <leader>i <Action>(OptimizeImports)
 
-" Terminal
+" ---------- Tool Windows ----------
+map <leader>t <Action>(ToolWindowsGroup)
 
-map <leader>t <Action>(ActivateTerminalToolWindow)
-
-
-" Navigation bar
+" ---------- UI / Nav ----------
 map <leader>. <Action>(ShowNavBar)
-
-" Menu
 map <leader>, <Action>(NavBarToolBar)
 
-" Errors
+" ---------- Errors ----------
 map <leader>gen <Action>(GotoNextError)
 map <leader>gep <Action>(GotoPreviousError)
 
-" Documentation
-map <leader>K <action>(QuickJavaDoc)
-map <leader>k <action>(ParameterInfo)
+" ---------- Docs ----------
+map <leader>K <Action>(QuickJavaDoc)
+map <leader>k <Action>(ParameterInfo)
 
-""" === WhichKey ===
+" ---------- Tool Windows --------
+map <leader>H <Action>(HideAllWindows)
+
+" ---------- Bookmarks -------------
+map <leader>" <Action>(ToggleBookmark)
+
+" ---------- Which-Key Descriptions ----------
 " Prefix groups
-let g:WhichKeyDesc_debug_group      = "<leader>d [D]ebug"
-let g:WhichKeyDesc_git_group        = "<leader>g [G]it"
-let g:WhichKeyDesc_ui_group         = "<leader>. UI / NavBar"
+let g:WhichKeyDesc_debug_group   = "<leader>d Run & Debug"
+let g:WhichKeyDesc_git_group     = "<leader>g Git"
+let g:WhichKeyDesc_buffers_group = "<leader>b Recent files"
+let g:WhichKeyDesc_refactor_grp  = "<leader>r Refactor/Introduce"
+
+" Refactor / Introduce
+let g:WhichKeyDesc_rename_el     = "<leader>rr Rename element"
+let g:WhichKeyDesc_intro_const   = "<leader>rc Introduce constant"
+let g:WhichKeyDesc_extract_meth  = "<leader>rm Extract method"
+let g:WhichKeyDesc_inline_el     = "<leader>rn Inline element"
+let g:WhichKeyDesc_intro_var     = "<leader>rv Introduce variable"
+let g:WhichKeyDesc_intro_param   = "<leader>rp Introduce parameter"
 
 " Project / Files
-let g:WhichKeyDesc_nerdtree_toggle  = "<leader>e Toggle NERDTree"
-let g:WhichKeyDesc_nerdtree_find    = "<leader>E Reveal current file"
-let g:WhichKeyDesc_buffers          = "<leader>b Buffers"
-let g:WhichKeyDesc_recent_files     = "<leader>bb Recent files"
-let g:WhichKeyDesc_close_file       = "<leader>bx Close file"
-let g:WhichKeyDesc_goto_file        = "<leader>f Goto file"
-let g:WhichKeyDesc_find_in_path     = "<leader>F Find in path"
-let g:WhichKeyDesc_goto_class       = "<leader>c Goto class"      " ⚠ conflicts with <leader>c Stop (see note)
-let g:WhichKeyDesc_goto_symbol      = "<leader>s Goto symbol"
-let g:WhichKeyDesc_goto_action      = "<leader>a Goto action"
-let g:WhichKeyDesc_file_structure   = "<leader>S File structure"
+let g:WhichKeyDesc_nerdtree_toggle = "<leader>e Toggle NERDTree"
+let g:WhichKeyDesc_nerdtree_find   = "<leader>E Reveal current file"
+let g:WhichKeyDesc_goto_file       = "<leader>f Goto file"
+let g:WhichKeyDesc_find_in_path    = "<leader>/ Find in path"
+let g:WhichKeyDesc_goto_class      = "<leader>c Goto class"
+let g:WhichKeyDesc_goto_symbol     = "<leader>s Goto symbol"
+let g:WhichKeyDesc_goto_action     = "<leader>a Goto action"
+let g:WhichKeyDesc_file_structure  = "<leader>S File structure"
 
-" Run & Debug (prefix + actions)
-let g:WhichKeyDesc_run              = "<leader>R Run"
-let g:WhichKeyDesc_stop             = "<leader>x Stop"
-let g:WhichKeyDesc_debug_default    = "<leader>dd Debug (default)"
-let g:WhichKeyDesc_debug_tool       = "<leader>dt Debug tool window"
-let g:WhichKeyDesc_breakpoint       = "<leader>db Toggle breakpoint"
-let g:WhichKeyDesc_step_over        = "<leader>dn Step over"
-let g:WhichKeyDesc_step_into        = "<leader>di Step into"
-let g:WhichKeyDesc_eval_expr        = "<leader>dev Evaluate expression"
-let g:WhichKeyDesc_resume           = "<leader>dr Resume"
+" Run & Debug
+let g:WhichKeyDesc_run            = "<leader>R Run"
+let g:WhichKeyDesc_stop           = "<leader>x Stop"
+let g:WhichKeyDesc_run_config     = "<leader>dc Choose Run Configuration"
+let g:WhichKeyDesc_debug_default  = "<leader>dd Debug (default)"
+let g:WhichKeyDesc_debug_tool     = "<leader>dt Debug tool window"
+let g:WhichKeyDesc_breakpoint     = "<leader>db Toggle breakpoint"
+let g:WhichKeyDesc_step_over      = "<leader>dn Step over"
+let g:WhichKeyDesc_step_into      = "<leader>di Step into"
+let g:WhichKeyDesc_eval_expr      = "<leader>dev Evaluate expression"
+let g:WhichKeyDesc_resume         = "<leader>dr Resume"
 
-" Git (prefix + actions)
-let g:WhichKeyDesc_git_annotate     = "<leader>ga Annotate (blame)"
-let g:WhichKeyDesc_git_history      = "<leader>gh File history"
-let g:WhichKeyDesc_git_commit       = "<leader>gc Commit"
+" Git
+let g:WhichKeyDesc_git_annotate   = "<leader>ga Annotate (blame)"
+let g:WhichKeyDesc_git_history    = "<leader>gh File history"
+let g:WhichKeyDesc_git_commit     = "<leader>gc Commit"
+let g:WhichKeyDesc_next_change    = "<leader>gn Next Change"
+let g:WhichKeyDesc_rollback       = "<leader>gr Rollback Lines"
 
-" Editing / Clipboard
-let g:WhichKeyDesc_copy             = "<leader>y Copy"
-let g:WhichKeyDesc_paste            = "<leader>p Paste"
-let g:WhichKeyDesc_toggle_comment   = "<leader>/ Toggle comment"
-let g:WhichKeyDesc_reformat         = "<leader>= Reformat code"
-let g:WhichKeyDesc_opt_imports      = "<leader>i Optimize imports"
-let g:WhichKeyDesc_rename           = "<leader>r Rename element"
+" Editing / Clipboard / Format
+let g:WhichKeyDesc_copy           = "<leader>y Copy"
+let g:WhichKeyDesc_paste          = "<leader>p Paste"
+let g:WhichKeyDesc_reformat       = "<leader>= Reformat code"
+let g:WhichKeyDesc_opt_imports    = "<leader>i Optimize imports"
 
 " UI / Tools
-let g:WhichKeyDesc_navbar_show      = "<leader>. Show NavBar"
-let g:WhichKeyDesc_navbar_toolbar   = "<leader>, NavBar toolbar"
-let g:WhichKeyDesc_terminal         = "<leader>t Terminal"
+let g:WhichKeyDesc_navbar_show    = "<leader>. Show NavBar"
+let g:WhichKeyDesc_navbar_toolbar = "<leader>, NavBar toolbar"
+let g:WhichKeyDesc_tool_windows   = "<leader>t Tool Windows"
 
 " Errors
-let g:WhichKeyDesc_next_error       = "<leader>gen Next error"
-let g:WhichKeyDesc_prev_error       = "<leader>gep Previous error"
+let g:WhichKeyDesc_next_error     = "<leader>gen Next error"
+let g:WhichKeyDesc_prev_error     = "<leader>gep Previous error"
 
-" Documentation Reader
-let g:WhichKeyDesc_javadoc          = "<leader>K Quick Java Doc"
-let g:WhichKeyDesc_parameter_info   = "<leader>k Parameter Info"
+" Documentation
+let g:WhichKeyDesc_javadoc        = "<leader>K Quick Java Doc"
+let g:WhichKeyDesc_parameter_info = "<leader>k Parameter Info"
 
 " Local History
-let g:WhichKeyDesc_local_history    = "<leader>lh Local History"
+let g:WhichKeyDesc_local_history  = "<leader>lh Local History"
+
+" Windows
+let g:WhichKeyDesc_hide_windows   = "<leader>H Hide All Tool Windows"
+
+" Bookmarks
+let g:WhichKeyDesc_bookmark       = "<leader>\" Toggle Bookmark"
