@@ -362,7 +362,11 @@ require('lazy').setup({
     priority = 1000,
     lazy = false,
     opts = {
-      explorer = { enabled = true },
+      explorer = {
+        enabled = true,
+        hidden = true,
+        ignored = true,
+      },
       -- indent guides handled by blink.indent (faster)
       picker = {
         enabled = true,
@@ -380,14 +384,14 @@ require('lazy').setup({
       {
         '<leader>e',
         function()
-          Snacks.explorer { hidden = true, ignored = false }
+          Snacks.explorer { hidden = true, ignored = true }
         end,
         desc = 'File explorer',
       },
       {
         '<leader>E',
         function()
-          Snacks.explorer { cwd = vim.fn.expand '%:p:h', hidden = true, ignored = false }
+          Snacks.explorer { cwd = vim.fn.expand '%:p:h', hidden = true, ignored = true }
         end,
         desc = 'File explorer (current dir)',
       },
@@ -610,9 +614,11 @@ require('lazy').setup({
 
       -- Document existing key chains (Helix-style)
       spec = {
+        { '<leader>f', group = 'Find' },
         { '<leader>w', group = 'Window' },
         { '<leader>g', group = 'Goto/Git' },
         { '<leader>J', group = 'Java' },
+        { '<leader>m', group = 'Markdown' },
       },
     },
   },
@@ -713,7 +719,10 @@ require('lazy').setup({
       local builtin = require 'telescope.builtin'
 
       -- File/Buffer pickers
-      vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = 'File picker' })
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'File picker' })
+      vim.keymap.set('n', '<leader>fa', function()
+        builtin.find_files { no_ignore = true, hidden = true }
+      end, { desc = 'File picker (all files)' })
       vim.keymap.set('n', '<leader>F', function()
         builtin.find_files { cwd = vim.fn.expand '%:p:h' }
       end, { desc = 'File picker (current dir)' })
@@ -979,6 +988,9 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
+
+        -- Markdown LSP (headings, links, references, completions)
+        marksman = {},
 
         -- Python LSP
         basedpyright = {
