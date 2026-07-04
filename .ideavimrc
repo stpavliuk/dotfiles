@@ -27,8 +27,9 @@ set surround
 set multiple-cursors
 set argtextobj
 set textobj-entire
+set functiontextobj
 " set ReplaceWithRegister
-" set easymotion
+set easymotion
 set highlightedyank
 set NERDTree
 set which-key
@@ -40,7 +41,7 @@ set ideastatusicon=gray
 set idearefactormode=keep
 
 " ---------- Which-Key settings ----------
-let g:WhichKey_DefaultDelay = 0
+let g:WhichKey_DefaultDelay = 2000
 let g:WhichKey_FontSize = 13
 let g:WhichKey_ShowVimActions = "true"
 let g:WhichKey_SortOrder = "by_key_prefix_first"
@@ -59,6 +60,10 @@ let g:NERDTreeMapJumpParent = 'h'
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:qs_disable_for_diffs = 1
 
+" --------- Acejump -----------
+map gw <Action>(AceWordAction)
+map gl <Action>(AceLineAction)
+
 " ---------- Clipboard ----------
 map <leader>y <Action>(EditorCopy)
 map <leader>p <Action>(EditorPaste)
@@ -73,14 +78,19 @@ map <leader>rm <Action>(ExtractMethod)
 map <leader>rn <Action>(Inline)
 map <leader>rv <Action>(IntroduceVariable)
 map <leader>rp <Action>(IntroduceParameter)
+map <leader>rt <Action>(Refactorings.QuickListPopupAction)
+
+" --------- Build / Bazel ------------
+
+map <leader>bs <Action>(Bazel.ResyncAction)
 
 " ---------- Buffers ----------
-map <leader>b <Action>(RecentFiles)
+map <leader>w <Action>(RecentFiles)
 
 " ---------- Goto / Search ----------
 map <leader>f <Action>(GotoFile)
-map <leader>/ <Action>(FindInPath)
-map <leader>c <Action>(GotoClass)
+map <leader>F <Action>(FindInPath)
+map <leader>o <Action>(GotoClass)
 map <leader>s <Action>(GotoSymbol)
 map <leader>a <Action>(GotoAction)
 map <leader>S <Action>(FileStructurePopup)
@@ -105,6 +115,7 @@ map <leader>gh <Action>(Vcs.ShowTabbedFileHistory)
 map <leader>gc <Action>(CheckinProject)
 map <leader>gn <Action>(VcsShowNextChangeMarker)
 map <leader>gr <Action>(Vcs.RollbackChangedLines)
+map <leader>gb <Action>(Git.Branches)
 
 " ---------- Local History ----------
 map <leader>lh <Action>(LocalHistory.ShowHistory)
@@ -115,6 +126,7 @@ map <leader>i <Action>(OptimizeImports)
 
 " ---------- Tool Windows ----------
 map <leader>t <Action>(ToolWindowsGroup)
+map <leader>! <Action>(ActivateTerminalToolWindow)
 
 " ---------- UI / Nav ----------
 map <leader>. <Action>(ShowNavBar)
@@ -134,11 +146,14 @@ map <leader>H <Action>(HideAllWindows)
 " ---------- Bookmarks -------------
 map <leader>" <Action>(ToggleBookmark)
 
+map <leader>c <Action>(CommentByLineComment)
+map <leader>C <Action>(CommentByBlockComment)
+
 " ---------- Which-Key Descriptions ----------
 " Prefix groups
 let g:WhichKeyDesc_debug_group   = "<leader>d Run & Debug"
 let g:WhichKeyDesc_git_group     = "<leader>g Git"
-let g:WhichKeyDesc_buffers_group = "<leader>b Recent files"
+let g:WhichKeyDesc_buffers_group = "<leader>w Recent files"
 let g:WhichKeyDesc_refactor_grp  = "<leader>r Refactor/Introduce"
 
 " Refactor / Introduce
@@ -148,12 +163,13 @@ let g:WhichKeyDesc_extract_meth  = "<leader>rm Extract method"
 let g:WhichKeyDesc_inline_el     = "<leader>rn Inline element"
 let g:WhichKeyDesc_intro_var     = "<leader>rv Introduce variable"
 let g:WhichKeyDesc_intro_param   = "<leader>rp Introduce parameter"
+let g:WhichKeyDesc_refactor_this = "<leader>rt Refactor this..."
 
 " Project / Files
 let g:WhichKeyDesc_nerdtree_toggle = "<leader>e Toggle NERDTree"
 let g:WhichKeyDesc_nerdtree_find   = "<leader>E Reveal current file"
 let g:WhichKeyDesc_goto_file       = "<leader>f Goto file"
-let g:WhichKeyDesc_find_in_path    = "<leader>/ Find in path"
+let g:WhichKeyDesc_find_in_path    = "<leader>F Find in path"
 let g:WhichKeyDesc_goto_class      = "<leader>c Goto class"
 let g:WhichKeyDesc_goto_symbol     = "<leader>s Goto symbol"
 let g:WhichKeyDesc_goto_action     = "<leader>a Goto action"
@@ -177,6 +193,7 @@ let g:WhichKeyDesc_git_history    = "<leader>gh File history"
 let g:WhichKeyDesc_git_commit     = "<leader>gc Commit"
 let g:WhichKeyDesc_next_change    = "<leader>gn Next Change"
 let g:WhichKeyDesc_rollback       = "<leader>gr Rollback Lines"
+let g:WhichKeyDesc_git_branches   = "<leader>gb Git Branches"
 
 " Editing / Clipboard / Format
 let g:WhichKeyDesc_copy           = "<leader>y Copy"
@@ -205,3 +222,6 @@ let g:WhichKeyDesc_hide_windows   = "<leader>H Hide All Tool Windows"
 
 " Bookmarks
 let g:WhichKeyDesc_bookmark       = "<leader>\" Toggle Bookmark"
+
+let g:WhichKeyDesc_comment        = "<leader>c Comment line"
+let g:WhichKeyDesc_comment_block  = "<leader>C Comment block"
